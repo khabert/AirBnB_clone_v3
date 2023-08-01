@@ -1,28 +1,37 @@
 #!/usr/bin/python3
-"""Index view for the web service API and these are the importation of modules
-    Create the route "/status" on the Blueprint object which is the path for blueprint
-    stat blueprint that should return an object thru /stats
 """
-from flask import jsonify
-from api.v1.views import app_views  # Blueprint object
+Flask route that returns json status response
+"""
+from api.v1.views import app_views
+from flask import jsonify, request
 from models import storage
-from models.engine.file_storage import classes
 
 
-# Create the route "/status" on the Blueprint object which is the path for blueprint
 @app_views.route('/status', methods=['GET'])
-def get_status():
-    return jsonify(status="OK")
+def status():
+    """
+    function for status route that returns the status
+    """
+    if request.method == 'GET':
+        resp = {"status": "OK"}
+        return jsonify(resp)
 
-# stat blueprint that should return an object thru /stats
-@app_views.route('/stats')
-def stats(cls=None):
-    #Return number of objects by type
 
-    objects = {}
-
-    for key, value in classes.items():
-        if key != 'BaseModel':
-            # count objects by type from storage
-            objects[key.lower()] = storage.count(value)
-    return jsonify(objects)
+@app_views.route('/stats', methods=['GET'])
+def stats():
+    """
+    function to return the count of all class objects
+    """
+    if request.method == 'GET':
+        response = {}
+        PLURALS = {
+            "Amenity": "amenities",
+            "City": "cities",
+            "Place": "places",
+            "Review": "reviews",
+            "State": "states",
+            "User": "users"
+        }
+        for key, value in PLURALS.items():
+            response[value] = storage.count(key)
+        return jsonify(response)
