@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#Index view for the web service API
+#Index view for the web service API and these are the importation of modules
 
 
 from flask import jsonify
@@ -8,12 +8,12 @@ from models import storage
 from models.engine.file_storage import classes
 
 
-# Create the route "/status" on the Blueprint object
+# Create the route "/status" on the Blueprint object which is the path for blueprint
 @app_views.route('/status', methods=['GET'])
 def get_status():
     return jsonify(status="OK")
 
-# stat blueprint
+# stat blueprint that should return an object thru /stats
 @app_views.route('/stats')
 def stats(cls=None):
     #Return number of objects by type

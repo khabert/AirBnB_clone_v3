@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# app.py
+# the importation of modules for app.py for easy connectivity
 
 from flask import Flask, make_response, jsonify
 from flask_cors import CORS
@@ -11,13 +11,14 @@ from api.v1.views import app_views  # Blueprint
 app = Flask(__name__)
 # set strict slashes on routes
 app.url_map.strict_slashes = False
-# Register app_views as blueprint to app
+
+# Register the blueprint app_views to the Flask instance app
 app.register_blueprint(app_views)
 
 # Set up CORS for app
 CORS(app, resources={'/*': {'origins': '0.0.0.0'}})
 
-
+# Define a method to handle teardown_appcontext that calls storage.close()
 @app.teardown_appcontext
 def close_storage(error=None):
     # Called when application context is torn down
