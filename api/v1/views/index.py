@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-#Index view for the web service API and these are the importation of modules
-
-
+"""Index view for the web service API and these are the importation of modules
+    Create the route "/status" on the Blueprint object which is the path for blueprint
+    stat blueprint that should return an object thru /stats
+"""
 from flask import jsonify
 from api.v1.views import app_views  # Blueprint object
 from models import storage

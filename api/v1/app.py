@@ -1,6 +1,9 @@
 #!/usr/bin/python3
-# the importation of modules for app.py for easy connectivity
-
+"""the importation of modules for app.py for easy connectivity
+    set strict slashes on routes
+     Define a method to handle teardown_appcontext that calls storage.close()
+     404 Responds handler for unavailable resources
+"""
 from flask import Flask, make_response, jsonify
 from flask_cors import CORS
 
